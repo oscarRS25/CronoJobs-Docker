@@ -1,0 +1,77 @@
+services:
+  # PHPMyAdmin service
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin:latest
+    ports: 
+      - 9090:80
+    environment:
+      PMA_ARBITRARY: 1
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 200M
+        reservations:
+          cpus: "0.10"
+          memory: 100M
+  
+  # MySQL service
+  mysql-db:
+    container_name: mysql-db
+    image: mysql:8.0
+    ports:
+      - 3306:3306
+    volumes:
+      - ./dbfiles:/docker-entrypoint-initdb.d
+      - ./mysql_files:/var/lib/mysql/
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: cronojobs
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    deploy:
+      resources:
+        limits:
+          cpus: "0.30"
+          memory: 300M
+        reservations:
+          cpus: "0.15"
+          memory: 200M
+
+  # Backend service
+  cronojobs-back:
+    build:
+      context: ./backend
+    container_name: cronojobs-back
+    ports:
+      - 8080:3000
+    depends_on:
+      - mysql-db
+    deploy:
+      resources:
+        limits:
+          cpus: "0.35"
+          memory: 350M
+        reservations:
+          cpus: "0.20"
+          memory: 250M
+
+  # Frontend service
+  cronojobs-front:
+    build:
+      context: ./angular
+    container_name: cronojobs-front
+    depends_on:
+      - cronojobs-back
+    ports:
+      - 80:80
+    deploy:
+      resources:
+        limits:
+          cpus: "0.30"
+          memory: 300M
+        reservations:
+          cpus: "0.15"
+          memory: 200M

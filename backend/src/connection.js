@@ -7,8 +7,8 @@ const promise_mysql_1 = __importDefault(require("promise-mysql"));
 const pool = promise_mysql_1.default.createPool({
     host: 'mysql-db',
     port: 3306,
-    user: 'root',
-    password: '123456',
+    user: 'admin',
+    password: 'admin',
     database: 'cronojobs',
 });
 pool.getConnection()
