@@ -14,7 +14,7 @@ spec:
   spec:
     containers:
       - name: cronojobs-back
-      image: cronojobs-back:0.0.1
-      ports:
-        - containerPort: 3000
-        name: cronojobsbport
+        image: cronojobs-back:0.0.1
+        ports:
+          - containerPort: 3000
+            name: cronojobsbport
