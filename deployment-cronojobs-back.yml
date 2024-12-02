@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cronojobs-back-deployment
+spec:
+  selector:
+    matchLabels:
+      app: cronojobs-back
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: cronojobs-back
+  spec:
+    containers:
+      - name: cronojobs-back
+      image: cronojobs-back:0.0.1
+      ports:
+        - containerPort: 3000
+        name: cronojobsbport

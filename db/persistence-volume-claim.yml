@@ -1,0 +1,15 @@
+# Crear un reclamador que hace la petición en una aplicación para verificar cuanto
+# almacenamiento puede utilizar
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-claim
+  labels:
+    app: mysql
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi 

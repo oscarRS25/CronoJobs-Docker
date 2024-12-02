@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cronojobs-back-service
+  labels:
+    app: cronojobs-back
+spec:
+  ports:
+    - name: cronojobs-back
+      port: 3000
+      nodePort: 40300
+  type: NodePort
+  selector:
+    app: cronojobs-back

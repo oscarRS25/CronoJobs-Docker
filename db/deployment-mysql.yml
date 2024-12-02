@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3306
+          envFrom:
+            - secretRef:
+                name: mysql-secret  # Referencia al Secret de credenciales
+          volumeMounts:
+            # Almacén de datos de MySQL
+            - mountPath: /var/lib/mysql
+              name: mysqldb
+            # Scripts de inicialización
+            - mountPath: /docker-entrypoint-initdb.d
+              name: init-script
+      volumes:
+        # Volumen persistente para la base de datos
+        - name: mysqldb
+          persistentVolumeClaim:
+            claimName: mysql-claim  # PVC para almacenamiento persistente
+        # Volumen para scripts de inicialización
+        - name: init-script
+          configMap:
+            name: mysql-init-script-configmap  # ConfigMap con scripts de inicialización

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  labels:
+    app: mysql
+spec:
+  clusterIP: 10.96.1.2
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: mysql
+      # Puerto interno de MySQL
+      port: 3306
+      # Exponer el puerto en el nodo
+      nodePort: 30306 
+  type: NodePort 
+  selector:
+    app: mysql

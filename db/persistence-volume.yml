@@ -1,0 +1,18 @@
+# el volumen de persistencia (PV) es una pieza de almacenamiento que tiene un 
+# ciclo de vida independiente de los pods y preserva todos los datos
+
+apiVersion: v1 # Versión de API Server
+kind: PersistentVolume # Tipo de archivo
+metadata:
+  name: mysql-volume
+  labels:
+    type: local # Puede cambiar en rutas EBS, Azure. local
+    app: mysql
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/data/mysql" # Punto de montaje dentro del nodo
