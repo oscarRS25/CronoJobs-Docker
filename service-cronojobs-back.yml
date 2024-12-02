@@ -8,7 +8,7 @@ spec:
   ports:
     - name: cronojobs-back
       port: 3000
-      nodePort: 40300
+      nodePort: 30333
   type: NodePort
   selector:
     app: cronojobs-back

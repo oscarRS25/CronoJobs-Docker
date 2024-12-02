@@ -8,7 +8,7 @@ spec:
   ports:
     - name: cronojobs-front
       port: 80
-      nodePort: 40100
+      nodePort: 30111
   type: NodePort
   selector:
     app: cronojobs-front
