@@ -20,9 +20,13 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3306
-          envFrom:
-            - secretRef:
-                name: mysql-secret  # Referencia al Secret de credenciales
+          env:
+            # Contraseña del usuario root
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: mysql-root-password
           volumeMounts:
             # Almacén de datos de MySQL
             - mountPath: /var/lib/mysql
