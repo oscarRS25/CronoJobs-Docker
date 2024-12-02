@@ -11,10 +11,10 @@ spec:
     metadata:
       labels:
         app: cronojobs-back
-  spec:
-    containers:
-      - name: cronojobs-back
-        image: cronojobs-back:0.0.1
-        ports:
-          - containerPort: 3000
-            name: cronojobsbport
+    spec:
+      containers:
+        - name: cronojobs-back
+          image: cronojobs-back:0.0.1
+          ports:
+            - containerPort: 3000
+              name: cronojobsbport
