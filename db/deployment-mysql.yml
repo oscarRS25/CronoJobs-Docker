@@ -20,7 +20,6 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3306
-          command: ["mysqld", "--default-authentication-plugin=mysql_native_password"]
           envFrom:
             - secretRef:
                 name: mysql-secret  # Referencia al Secret de credenciales
